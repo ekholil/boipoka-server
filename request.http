@@ -1,0 +1,63 @@
+Get http://localhost:5000
+###
+
+Get http://localhost:5000/api/v1/admins
+
+### Get all users
+GET http://localhost:5000/api/v1/users
+
+### User sign up
+POST http://localhost:5000/api/v1/auth/signup
+Content-Type: application/json
+
+{
+  "phoneNumber":"019582514806",
+  "role":"buyer",
+  "password":"1234",
+  "name":{
+    "firstName":"Md",
+    "lastName":"buyer 04"
+  },
+  "address":"Dhaka",
+  "budget":150000,
+  "income":0
+}
+
+
+### admin login
+POST http://localhost:5000/api/v1/admins/login
+Content-Type: application/json
+
+{   
+    "phoneNumber": "01711111111",
+    "password":"1234"
+}
+
+###
+POST http://localhost:5000/api/v1/admins/refresh-token
+Content-Type: application/json
+
+### get all orders
+GET http://localhost:5000/api/v1/orders
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0OWQ5MjhmMzYyYTJmMzZlMzFhN2U4MSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTY4ODA5OTk4MywiZXhwIjoxNjg4MTg2MzgzfQ.WQU-Ea59DduT93A_Ofsl24yn6rPYNS63Uii5-_YNav8
+
+### GET SINGLE ORDER
+GET http://localhost:5000/api/v1/orders/649da6ffeb3d7b27b591aeff
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0OWQ5MjhmMzYyYTJmMzZlMzFhN2U4MSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTY4ODA5ODI2MywiZXhwIjoxNjg4MTg0NjYzfQ.b-N6P8jQMZ0unLVOUFkcIsUoVPiz32-QIgXUVzzApDM
+
+
+####
+
+POST http://localhost:5000/api/v1/admins/create-admin
+Content-Type: application/json
+
+{
+ "password":"adminpass",
+ "role": "admin",
+  "name":{
+     "firstName": "Mr. Admin",
+     "lastName": "Bhai"
+   },
+ "phoneNumber":"01711111114",
+ "address": "Uganda"
+}
