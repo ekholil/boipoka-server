@@ -1,10 +1,12 @@
 import { Response, Request, NextFunction } from "express";
 import {
+  addToWishListService,
   createUser,
   deleteUser,
   getAllUser,
   getMyProfileService,
   getSingleUser,
+  getWishListService,
   refreshTokenUserService,
   updateUser,
   userLoginService,
@@ -36,6 +38,28 @@ export const userLoginController = async (req: Request, res: Response) => {
     statusCode: 200,
     message: "User Logged in Successfully",
     data: others,
+  });
+};
+
+// add to wishlist
+export const addToWishList = async (req: Request, res: Response) => {
+  const result = await addToWishListService(req.body, req.user);
+  res.send({
+    success: true,
+    statusCode: 200,
+    message: "Added to wishlist",
+    data: result,
+  });
+};
+
+// get wishlist
+export const getWishList = async (req: Request, res: Response) => {
+  const result = await getWishListService(req.user);
+  res.send({
+    success: true,
+    statusCode: 200,
+    message: "wishlist retrieved",
+    data: result,
   });
 };
 

@@ -4,7 +4,6 @@ import { IBook } from "./book.interface";
 import { Book } from "./book.model";
 import httpstatus from "http-status";
 import { JwtPayload } from "jsonwebtoken";
-import { Types } from "mongoose";
 
 // create a Book
 export const createBook = async (payload: IBook): Promise<IBook | null> => {

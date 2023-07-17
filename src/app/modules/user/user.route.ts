@@ -1,7 +1,13 @@
 import express from "express";
-import { userLoginController, userSignupControler } from "./user.conroller";
+import {
+  addToWishList,
+  getWishList,
+  userLoginController,
+  userSignupControler,
+} from "./user.conroller";
 import validateRequest from "../../middlewares/validateRequest";
 import { userLoginZodValidation, userZodValidation } from "./user.validation";
+import auth from "../../middlewares/auth";
 
 const router = express.Router();
 
@@ -18,7 +24,9 @@ router.post(
   validateRequest(userLoginZodValidation),
   userLoginController
 );
-
+// add to wishlist
+router.post("/wishlist", auth(), addToWishList);
+router.get("/wishlist", auth(), getWishList);
 // refresh token
 // router.post("/auth/refresh-token", validateRequest(refreshTokenZodValidation), refreshTokenUserController)
 

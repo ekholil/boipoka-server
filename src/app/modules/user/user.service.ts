@@ -6,6 +6,8 @@ import httpstatus from "http-status";
 import config from "../../../config";
 import jwt, { JwtPayload, Secret } from "jsonwebtoken";
 import bcrypt from "bcrypt";
+import { IBook } from "../book/book.interface";
+import { Book } from "../book/book.model";
 
 // create a user
 export const createUser = async (payload: IUser): Promise<IUser | null> => {
@@ -57,10 +59,44 @@ export const userLoginService = async (payload: IUserLogin) => {
     refreshToken,
     name: user.name,
     email: user.email,
-    id:user._id
+    id: user._id,
   };
 };
 
+// add to wishlist
+export const addToWishListService = async (
+  payload: IBook,
+  user: JwtPayload | null
+) => {
+  const isUserExist = await User.findOne({ _id: user?.id });
+  if (!isUserExist) {
+    throw new ApiError(httpstatus.NOT_FOUND, "User Not Found");
+  }
+  try {
+    const result = await User.updateOne(
+      { _id: user?.id },
+      { $push: { wishlist: payload } }
+    );
+    if (!result.modifiedCount) {
+      return new ApiError(
+        httpStatus.NOT_FOUND,
+        "User Not Found add failed failed"
+      );
+    }
+    return result;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// get wishlist
+export const getWishListService = async (user: JwtPayload | null) => {
+  const isUserExist = await User.findOne({ _id: user?.id });
+  if (!isUserExist) {
+    throw new ApiError(httpstatus.NOT_FOUND, "User Not Found");
+  }
+  return isUserExist.wishlist;
+};
 // Refresh token user service
 export const refreshTokenUserService = async (token: string) => {
   let verifedToken: JwtPayload | null = null; // Define the type as JwtPayload | null

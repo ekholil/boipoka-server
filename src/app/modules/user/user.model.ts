@@ -17,6 +17,12 @@ const userSchema = new Schema<IUser>(
       type: String,
       required: true,
     },
+    wishlist: {
+      type: Array,
+    },
+    readinglist: {
+      type: Array,
+    },
   },
   {
     timestamps: true,

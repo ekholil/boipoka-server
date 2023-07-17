@@ -3,6 +3,7 @@ export type IUser = {
   password: string;
   name: string;
   wishlist?: [];
+  readinglist?: [];
 };
 
 export type IUserLogin = {
